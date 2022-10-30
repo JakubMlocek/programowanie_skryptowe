@@ -7,7 +7,6 @@ if __name__ == "__main__":
     parser.add_argument("file", help="python script name")
     args = parser.parse_args()
     to_replace = re.findall(r"[\w\d_]+:[\w\d_]+", str(args.names))
-    print(to_replace)
     file = args.file
     if file:
         with open(file, "r+") as f:

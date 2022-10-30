@@ -1,5 +1,5 @@
 from day import Day
-
+from math import floor
 
 class Term():
     def __init__(self,day :Day, hour :int, minute :int, duration=None) -> None:    
@@ -16,6 +16,16 @@ class Term():
 
     def __int__(self):
         return (self.__day.value*1440+self.hour*60+self.minute)
+
+    @classmethod
+    def fromInt(cls, minutes:int):
+        return Term(Day(floor(minutes/1440)), floor(minutes/60) - floor(minutes/1440)*24, minutes % 60)
+
+    def rebuildFromMinutes(self, minutes:int):
+        self.hour = floor(minutes/60) - floor(minutes/1440)*24
+        self.minute = minutes % 60
+        self.__day = Day(floor(minutes/1440))
+        return self
 
     def earlierThan(self, termin):
         if int(self) < int(termin):

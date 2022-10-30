@@ -20,6 +20,8 @@ class Day(enum.Enum):
         Day.SUN : "Niedziela"
         }[self]
     
+    
+
     def difference(self, day):
         diff = day.value - self.value
         if(diff > 4):
@@ -30,3 +32,6 @@ class Day(enum.Enum):
 
 def nthDayFrom(n, day):
     return Day((day.value + n)%7)
+
+wtorek = Day(1)
+print(wtorek.value)

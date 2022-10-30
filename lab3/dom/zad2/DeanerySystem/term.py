@@ -1,4 +1,5 @@
-from DeanerySystem.day import Day
+from day import Day
+
 
 class Term():
     def __init__(self,day :Day, hour :int, minute :int) -> None:    
