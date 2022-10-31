@@ -1,5 +1,5 @@
-from term import Term
-from day import Day
+from DeanerySystem.day import Day
+from DeanerySystem.term import Term 
 
 class Lesson():
     def __init__(self, term :Term, name :str, teacherName :str, year :int) -> None:
@@ -84,7 +84,4 @@ class Lesson():
         else:
             return False
 
-lesson = Lesson(Term(Day.SUN, 8, 40), "Programowanie skryptowe", "Stanisław Polak", 2);
-print(lesson)
-lesson.laterDay()
-print(lesson)
+

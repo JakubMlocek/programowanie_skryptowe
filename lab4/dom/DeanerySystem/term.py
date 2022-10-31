@@ -1,4 +1,4 @@
-from day import Day
+from DeanerySystem.day import Day
 from math import floor
 
 class Term():
