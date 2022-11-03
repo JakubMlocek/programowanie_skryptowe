@@ -115,6 +115,7 @@ class TimetableTest(unittest.TestCase):
         timetable.perform(actions)
         self.assertEqual(int(lesson.term), (9*60+30))
         self.assertEqual(int(lesson2.term), (1440+8*60))
+        print(timetable)
 
 
 if __name__ == "__main__":

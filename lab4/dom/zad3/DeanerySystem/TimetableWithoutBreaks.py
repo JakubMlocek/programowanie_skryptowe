@@ -4,6 +4,7 @@ from .term import Term
 from .day import Day
 import re
 from enum import Enum
+from math import floor
 
 class Action(Enum):
     DAY_EARLIER = 0
@@ -64,6 +65,20 @@ class TimetableWithoutBreaks():
             result.append(translate[each])
         return result                
 
+    @staticmethod
+    def align(string):
+        if(len(string) > 20):
+            return string[:20]
+        else:
+            i = (20-len(string))/2
+            if(i % 1):
+                i = floor(i)
+                return " "*i + string + " "*(i+1)
+            else:
+                i = int(i)
+                return " "*i + string + " "*i
+
+
     def perform(self, actions: List[Action]):
         for i in range(len(actions)):
             if(actions[i] == Action.DAY_EARLIER):
@@ -92,7 +107,7 @@ class TimetableWithoutBreaks():
                     out += "*" + " "*20 
                 else:
                     out += "*" + TimetableWithoutBreaks.align(lesson.name)
-            start.reInt(int(start)+90)
-            end.reInt(int(end)+90)
+            start.rebuildFromMinutes(int(start)+90)
+            end.rebuildFromMinutes(int(end)+90)
             out += "\n" + "*"*(8*20+7) + "\n"
         return out
