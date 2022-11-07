@@ -51,6 +51,30 @@ class DealerTest(unittest.TestCase):
 
     
 class DealerTestIntegral(TestPrint):
+    def test_integral_basic(self):
+        dealership = Dealer()
+        line1 = "marek:opel:W:10.10.2010:11.10.2010"
+
+        path = "/Users/jakmlo/Desktop/studia/sem3/prog_skryptowe/lab4/zajecia/data.txt"
+        dealership.readDataFile(path)
+
+        dealership.parseInputLine(line1)
+        dealership.calculate() 
+
+        with self.assertStdout("""
+PODSUMOWANIE:
+Osoba: marek
+Wynajem marki opel od: 2010-10-10 do 2010-10-11 za 200
+Razem Wydala: 200
+
+
+Koncowa zawartosc garazu:
+fiat sztuk 13
+opel sztuk 13
+ferrati sztuk 2
+mustang sztuk 5\n"""):
+            dealership.calculate()
+
     def test_integral(self):
         dealership = Dealer()
         line1 = "marek:opel:W:10.10.2010:11.10.2010"
@@ -96,5 +120,7 @@ mustang sztuk 5\n"""):
 
 
 
-if __name__ == "__main__":    
+if __name__ == "__main__":   
     unittest.main(exit=False)
+
+
