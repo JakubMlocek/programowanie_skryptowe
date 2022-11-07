@@ -30,14 +30,14 @@ class Dealer():
             #    tranzakcja["data_wypozyczenia"] = linia[3] #dodaj datetime
             #    tranzakcja["data_zwrotu"] = linia[4] #dodaj datetime
         
-        try:
-            linia = linia.split(':')
-            if linia[2] == "K": #K-kupno W-wynajem
-                self.sell(linia)
-            if linia[2] == "W":
-                self.rent(linia)
-        except:
-            print("Błednie podane dane!")
+        #try:
+        linia = linia.split(':')
+        if linia[2] == "K": #K-kupno W-wynajem
+            self.sell(linia)
+        if linia[2] == "W":
+            self.rent(linia)
+        #except:
+            #print("Błednie podane dane!")
 
     def readInput(self):
         while True:
@@ -50,6 +50,8 @@ class Dealer():
                 break
 
     def calculate(self):
+        print()
+        print("PODSUMOWANIE:")
         for osoba, tranzakcje in self.kupujacy.items():
             print(f"Osoba: {osoba}")
             lacznyKoszt = 0
@@ -98,23 +100,13 @@ class Dealer():
             print(f"Brak wystarczajacych zasobow zeby obsuzyc tranzakcje: {linia}")
 
 if __name__ == "__main__":
-    #parser = argparse.ArgumentParser("Welcome to Car Dealer!")
-    #parser.add_argument("file", help="path to file", type=str, required=True)
-    #args = parser.parse_args()
+    parser = argparse.ArgumentParser("Welcome to Dealer!")
+    parser.add_argument("file", help="python script name")
+    args = parser.parse_args()
     
     dealership = Dealer()
-    line1 = "marek:opel:W:10.10.2010:11.10.2010"
-    line2 = "k"
-    #line2 = "kamil:opel:K"
-    line3 = "marek:fiat:K"
-
-    path = "/Users/jakmlo/Desktop/studia/sem3/prog_skryptowe/lab4/zajecia/data.txt"
+    path = args.file
     dealership.readDataFile(path)
-
-    dealership.parseInputLine(line1)
-    dealership.parseInputLine(line2)
-    dealership.parseInputLine(line3)
-    print(dealership.garaz)
-    print(dealership.kupujacy)
+    dealership.readInput()
     dealership.calculate()
     #unittest.main(exit=False)
