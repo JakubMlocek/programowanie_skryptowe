@@ -74,7 +74,7 @@ class Dealer():
 
 
     def sell(self, linia):
-        if self.garaz[linia[1]]["ilosc"] > 1:
+        if self.garaz[linia[1]]["ilosc"] >= 1:
             self.garaz[linia[1]]["ilosc"] -= 1
             if linia[0] in self.kupujacy: #jezeli juz istniala tranzakcja z tym kierowca dodajemy tranzakcje do jego tanzakcji
                 self.kupujacy[linia[0]].append(linia[1:])
@@ -83,10 +83,11 @@ class Dealer():
                 self.kupujacy[linia[0]].append(linia[1:])
         else:
             print(f"Brak wystarczajacych zasobow zeby obsuzyc tranzakcje: {linia}")
+            return None
         
 
     def rent(self, linia):
-        if self.garaz[linia[1]]["ilosc"] > 1:
+        if self.garaz[linia[1]]["ilosc"] >= 1:
             data = linia[3].split('.')
             linia[3] = date(int(data[2]),int(data[1]),int(data[0]))
             data = linia[4].split('.')

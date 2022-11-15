@@ -49,7 +49,25 @@ class DealerTest(unittest.TestCase):
         dealership.parseInputLine(line3)
         self.assertEqual(dealership.garaz, {'fiat': {'ilosc': 12, 'cena_sprzedazy': 40000, 'cena_wypozyczenia': 150}, 'opel': {'ilosc': 12, 'cena_sprzedazy': 55000, 'cena_wypozyczenia': 200}, 'ferrati': {'ilosc': 2, 'cena_sprzedazy': 440000, 'cena_wypozyczenia': 900}, 'mustang': {'ilosc': 5, 'cena_sprzedazy': 100000, 'cena_wypozyczenia': 500}})
 
-    
+    def test_sell(self):
+        dealership = Dealer()
+        path = "/Users/jakmlo/Desktop/studia/sem3/prog_skryptowe/lab4/zajecia/data.txt"
+        dealership.readDataFile(path)
+
+        line2 = "kamil:opel:K"
+
+        dealership.sell(line2.split(':'))
+        self.assertEqual(dealership.garaz,{'fiat': {'ilosc': 13, 'cena_sprzedazy': 40000, 'cena_wypozyczenia': 150}, 'opel': {'ilosc': 12, 'cena_sprzedazy': 55000, 'cena_wypozyczenia': 200}, 'ferrati': {'ilosc': 2, 'cena_sprzedazy': 440000, 'cena_wypozyczenia': 900}, 'mustang': {'ilosc': 5, 'cena_sprzedazy': 100000, 'cena_wypozyczenia': 500}})
+
+        line3 = "marek:fiat:K"
+        dealership.sell(line3.split(':'))
+        self.assertEqual(dealership.garaz, {'fiat': {'ilosc': 12, 'cena_sprzedazy': 40000, 'cena_wypozyczenia': 150}, 'opel': {'ilosc': 12, 'cena_sprzedazy': 55000, 'cena_wypozyczenia': 200}, 'ferrati': {'ilosc': 2, 'cena_sprzedazy': 440000, 'cena_wypozyczenia': 900}, 'mustang': {'ilosc': 5, 'cena_sprzedazy': 100000, 'cena_wypozyczenia': 500}})
+
+        #line4 = "marek:suzuki:K"
+        #self.assertEqual(dealership.sell(line4.split(':')),None)
+
+
+
 class DealerTestIntegral(TestPrint):
     def test_integral_basic(self):
         dealership = Dealer()
