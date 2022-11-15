@@ -106,6 +106,23 @@ class BasicTest(unittest.TestCase):
         client2 = Client(2,"konrad","macedonski","krakow")
         client2 << Dealer.garage[0]
         self.assertEqual(Dealer.garage[0].identyfikator_klienta, client1.identyfikator_klienta)   
+    
+    def testReturn(self):
+        client0 = Client(0,"andrzej","monk","olkusz")
+        client0 >> Dealer.garage[1]
+        self.assertEqual(Dealer.garage[1].identyfikator_klienta, client0.identyfikator_klienta)   
+        self.assertEqual(Dealer.garage[1].data_zwrotu, date.today())
 
+        client1 = Client(1,"jakub","sztocek","katowice")
+        client1 >> Dealer.garage[0]
+        self.assertEqual(Dealer.garage[0].identyfikator_klienta, client1.identyfikator_klienta)   
+        self.assertEqual(Dealer.garage[0].data_zwrotu, date.today())
+
+    def testRentIfNotPossible(self):
+        client1 = Client(1,"jakub","sztocek","katowice")
+        client2 = Client(2,"konrad","macedonski","krakow")
+        client2 >> Dealer.garage[0]
+        self.assertEqual(Dealer.garage[0].identyfikator_klienta, client1.identyfikator_klienta)   
+        
 if __name__ == "__main__":
     unittest.main()
