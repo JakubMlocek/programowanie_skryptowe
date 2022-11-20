@@ -93,6 +93,17 @@ class Term(BasicTerm):
         self.__day = day
         super().__init__(hour, minute, duration)
     
+    def __hash__(self):
+        first = hash(self.day)
+        second = hash(first + self.hour)
+        third = hash(second + self.minute)
+        fourth = hash(third + self.duration)
+        return fourth
+
+    def __eq__(self, other):
+        # return self.__hash__() == other.hash()
+        return hasattr(other, 'day') and self.day == other.day and self.hour == other.hour and self.minute == other.minute and self.duration == other.duration
+
     def strKey(self):
         if(self.minute < 10):
             return "{}:0{} [{}] {}".format(self.hour, self.minute, self.duration, self.day.readable())

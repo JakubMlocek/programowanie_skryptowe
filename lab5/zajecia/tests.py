@@ -48,12 +48,12 @@ Adres: katowice\n"""):
             print(client1)
 
     def testCarPrint(self):
-        car1 = Car(1,"opel",40000,200,4,date.today(),date.today())
+        car1 = Car(1,"opel",40000,200,4,date(2022,11,15),date(2022,11,17))
         with self.assertStdout("""ID: 1
 Marka: opel 
 Cena Sprzedazy: 40000 
 Cena Wynajmu: 200 
-Wynajety od: 2022-11-15 do: 2022-11-15\n"""):
+Wynajety od: 2022-11-15 do: 2022-11-17\n"""):
             print(car1)
 
 class BasicTest(unittest.TestCase):
