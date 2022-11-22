@@ -1,31 +1,35 @@
-from inspect import signature
+from inspect import signature as sig
 import unittest
 
-def argumenty(*args, **kwargs):
-    def wynik(funkcja):
-        decList = []
-        decList += args[0]
-        numOfParameters = len(signature(funkcja).parameters) - 1
-        def wrapper(self, *args, **kwargs):
-            remaining = 0
-            finalArgs = []
-            finalArgs += args
-            if([len(args) < numOfParameters]):
-                remaining = numOfParameters                                                                                                                                                                                                                                                                                       - len(args)
-            if remaining > 0:
-                finalArgs += decList[:remaining]
-            string = funkcja(self, *finalArgs)
-            if type(string) == tuple:
-                if(len(string) > 1):
-                    return string[1]
-            out = 0
-            if len(decList) > remaining:
-                out = decList[remaining]
-            else:
-                out = decList[-1]
-            return (string, out)
-        return wrapper
-    return wynik 
+def argumenty(argsFromClass):
+    def dec_argumenty(func):
+        def wrap_argumenty(*args):
+            #pobranie ilości potrzebnych argumentów
+            numOfWillenArgs = len(list(sig(func).parameters))
+
+            finalArgs = list(args)
+
+            numOfGivernArgs = len(finalArgs) + len(argsFromClass)
+            if numOfGivernArgs < numOfWillenArgs:
+                raise TypeError(
+                    f'{func.__name__} takes exactly {numOfWillenArgs-1}, only ({numOfGivernArgs-1} arguments given)')
+
+            ctr = 0
+            while len(finalArgs) < numOfWillenArgs:
+                finalArgs.append(argsFromClass[ctr])
+                ctr += 1
+
+            func(*finalArgs) #*podaje elementy z tablicy po kolei
+
+            # próbujemy podać kolejną zmienną spośród podanych dekoratorowi
+            try:
+                return argsFromClass[ctr]
+            # jeżeli nie ma już dostępnych argumentów (nie udało się), zwracamy None
+            except:
+                return None
+
+        return wrap_argumenty
+    return dec_argumenty
 
 
 class Operacje:
@@ -47,34 +51,34 @@ class Operacje:
         return("%d-%d=%d" % (x,y,x-y))
 
 class extest(unittest.TestCase):
-    def test_suma(self):
-        op=Operacje()
-        x = op.suma(1,2,3)
-        self.assertEqual(x[0], "1+2+3=6")
-        self.assertEqual(x[1], 4)
-        x = op.suma(1,2) 
-        self.assertEqual(x[0], "1+2+4=7")
-        self.assertEqual(x[1], 5)
-        x = op.suma(1) 
-        self.assertEqual(x[0], "1+4+5=10")
-        self.assertEqual(x[1], 5)
-        try:
-            op.suma() #TypeError: suma() takes exactly 3 arguments (2 given)
-        except TypeError:
-            x = True
-        self.assertTrue(x)
+    def test_suma_3arg(self):
+        op = Operacje()
+        self.assertEqual(op.suma(1, 2, 3), 4)
+
+    def test_suma_2arg(self):
+        op = Operacje()
+        self.assertEqual(op.suma(1, 2), 5)
+
+    def test_suma_1arg(self):
+        op = Operacje()
+        self.assertEqual(op.suma(1), None)
+
+    def test_suma_0arg(self):
+        op = Operacje()
+        with self.assertRaises(TypeError):
+            op.suma()
     
-    def test_roznica(self):
-        op=Operacje()
-        x = op.roznica(2,1) 
-        self.assertEqual(x[0], "2-1=1")
-        self.assertEqual(x[1], 4)
-        x = op.roznica(2)
-        self.assertEqual(x[0], "2-4=-2")
-        self.assertEqual(x[1], 5)
-        x = op.roznica() #Wypisze: 4-5=-1
-        self.assertEqual(x[0], "4-5=-1")
-        self.assertEqual(x[1], 6)
+    def test_roznica_2arg(self):
+        op = Operacje()
+        self.assertEqual(op.roznica(2, 1), 4)
+
+    def test_roznica_1arg(self):
+        op = Operacje()
+        self.assertEqual(op.roznica(2), 5)
+
+    def test_roznica_0arg(self):
+        op = Operacje()
+        self.assertEqual(op.roznica(), 6)
 
     def test_zmiana_zawartosci(self):
         op=Operacje()
