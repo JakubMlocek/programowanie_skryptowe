@@ -1,0 +1,68 @@
+.azure {
+    background-color: #30d5c8;
+    border: black solid 2px;
+    box-shadow: 0 0 2px 2px grey;
+    margin-bottom: 15px;
+    padding: 10px;
+}
+
+
+footer {
+    /* Specyfikacja wyglądu */
+}
+header {
+    /* Specyfikacja wyglądu */
+}
+main {
+    max-width: 500px;
+    margin-top: 15px;
+}
+nav {
+    margin-top: 10px;
+    width: 100%;
+}
+nav ul {
+    /* Specyfikacja wyglądu */
+}
+nav li {
+    /* Specyfikacja wyglądu */
+}
+
+blockquote{
+    font-family: 'Courier New', Courier, monospace;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+h1, h2{
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+aside h1 {
+    animation-name: RedToBlue;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+@keyframes RedToBlue{
+    from{color: red;}
+    to{color: blue}
+    from{color: blue;}
+    to{color: red}
+}
+
+@media screen and (min-width: 950px){
+    aside  {
+        position: absolute;
+        right: 25px;
+        top: 120px;
+        width: 400px;
+    }
+    nav {
+        margin-top: 10px;
+        width: 125px;
+    }
+}
+
