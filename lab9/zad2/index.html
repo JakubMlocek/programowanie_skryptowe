@@ -1,0 +1,32 @@
+<input id="counter" type="number"><br><br>
+
+<span>0</span><br>
+<span>0</span><br>
+<span>0</span><br>
+<span>0</span><br>
+<span>0</span><br>
+<span>0</span><br>
+<span>0</span><br>
+<span>0</span><br>
+<span>0</span><br>
+<span>0</span><br>
+
+<script>
+    var input = document.getElementById("counter");
+    var spans = Array.from(document.getElementsByTagName("span"));
+    input.value = 10;
+    spans.forEach(element => {
+            element.textContent = 10;
+        });
+
+    setInterval(function() {
+        let val = parseInt(input.value);
+        if (val <= 0 || isNaN(val))
+            return;
+
+        input.value = --val; //val - 1 gave me 1 loop latency
+        spans.forEach(element => {
+            element.textContent = val;
+        });
+    }, 1000);
+</script>
