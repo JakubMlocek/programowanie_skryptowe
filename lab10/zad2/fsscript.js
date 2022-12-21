@@ -35,7 +35,7 @@ function checkIsFile(fpath) {
     } else {
       return false
     }
-ś}
+}
 
 function checkIsDir(fpath) {
     if (checkExists(fpath)) {
