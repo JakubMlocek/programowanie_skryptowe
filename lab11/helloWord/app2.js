@@ -7,8 +7,11 @@ var x = 1;
 var y = 2;
 
 const mongoose = require('mongoose')
+
+const uri = "mongodb+srv://mongo:mongo@cluster0.b1iwvdz.mongodb.net/?retryWrites=true&w=majority"
 const { Schema } = mongoose;
-mongoose.connect('mongodb://localhost:27017/skryptowe');
+mongoose.connect(uri);
+
 const opSchema = new Schema({
     x: Number,
     y: Number,
@@ -50,6 +53,9 @@ function readFile(fpath) {
     }
 }
 
+function sum(x, y) {
+    return x + y
+}
 
 // Configuring the application
 app.set('views', __dirname + '/views');               // Files with views can be found in the 'views' directory
@@ -64,9 +70,7 @@ app.use(logger('dev'));                            // Add an HTTP request record
 
 // The first route
 app.get('/', function (req, res) {
-    res.render('index',{
-        pretty: true, x, y, z: x + y,
-    }); // Render the 'index' view
+    res.render('index', { sum: sum(x, y) });
 });
 
 app.get('/json/:name', function (req, res) {
@@ -91,7 +95,6 @@ app.get('/calculate/:operation/:x/:y', async function (req, res) {
 
 app.get('/results', async function (req, res) {
     var json = await Op.find();
-
     res.render('json', { json: json });
 });
 
