@@ -1,0 +1,23 @@
+{
+  "name": "helloword",
+  "version": "1.0.0",
+  "description": "pierwszy pakiet w js",
+  "main": "index.js",
+  "scripts": {
+    "start": "./app2.js",
+    "test": "mocha",
+    "app1": "./app1start.js && ./app1.js"
+  },
+  "author": "Jakub Mlocek",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mocha": "^10.2.0",
+    "morgan": "^1.10.0",
+    "pug": "^3.0.2",
+    "yarn": "^1.22.19"
+  },
+  "devDependencies": {
+    "supertest": "^6.3.3"
+  }
+}
